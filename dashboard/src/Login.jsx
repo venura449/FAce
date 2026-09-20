@@ -2,8 +2,8 @@
 import "./Login.css";
 import heroImg from "./assets/hero_skincare.png";
 
-// Use Vite env (`VITE_*`) in browser builds; fall back to localhost
-const API_SERVER = import.meta?.env?.VITE_API_SERVER || "http://127.0.0.1:5000";
+// Hosted API server used by browser builds
+const API_SERVER = "https://outlast-coma-isotope.ngrok-free.dev";
 
 const LeafIcon = () => (
   <svg

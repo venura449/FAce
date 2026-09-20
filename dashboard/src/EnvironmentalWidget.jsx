@@ -33,7 +33,7 @@ export default function EnvironmentalWidget() {
   const [data, setData] = useState(null);
 
   const apiUrl = useMemo(() => {
-    return "http://127.0.0.1:5000/api/environment";
+    return "https://outlast-coma-isotope.ngrok-free.dev/api/environment";
   }, []);
 
   async function fetchEnvironment() {

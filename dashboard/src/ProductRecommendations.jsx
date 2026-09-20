@@ -106,7 +106,7 @@ export default function ProductRecommendations({ cvScores }) {
     return [sLimit, mLimit];
   }, [cvPayload]);
 
-  const apiBase = useMemo(() => "http://127.0.0.1:5000", []);
+  const apiBase = useMemo(() => "https://outlast-coma-isotope.ngrok-free.dev", []);
 
   useEffect(() => {
     let cancelled = false;

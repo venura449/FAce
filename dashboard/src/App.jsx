@@ -286,8 +286,7 @@ function Dashboard({ user, onLogout, onGoHome, onGoToProfile }) {
   const [selectedCameraId, setSelectedCameraId] = useState("");
 
   const apiUrl = useMemo(() => {
-    // Can be changed later to env var or proxied
-    return "http://127.0.0.1:5001/api/scan/opencv";
+    return "https://outlast-coma-isotope.ngrok-free.dev/api/scan/opencv";
   }, []);
 
   async function runScan(nextFile) {
