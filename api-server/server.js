@@ -50,12 +50,19 @@ const corsOrigins = CORS_ORIGIN.split(",")
   .map((s) => s.trim())
   .filter(Boolean);
 
+function isAllowedCorsOrigin(origin) {
+  return (
+    corsOrigins.includes(origin) ||
+    /^https:\/\/[a-z0-9-]+\.app\.github\.dev$/i.test(origin)
+  );
+}
+
 app.use(
   cors({
     origin(origin, cb) {
       // allow non-browser callers (no Origin header) and configured dev origins
       if (!origin) return cb(null, true);
-      return cb(null, corsOrigins.includes(origin));
+      return cb(null, isAllowedCorsOrigin(origin));
     },
   })
 );

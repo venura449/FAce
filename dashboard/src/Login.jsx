@@ -71,6 +71,7 @@ function getToken() {
 function fetchWithAuth(url, options = {}) {
   const token = getToken();
   const headers = new Headers(options.headers || {});
+  headers.set("ngrok-skip-browser-warning", "true");
   if (token) {
     headers.set("Authorization", `Bearer ${token}`);
   }
@@ -308,6 +309,7 @@ export default function LoginPage({ onLogin }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
         },
         body: JSON.stringify(payload),
       });

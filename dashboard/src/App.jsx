@@ -307,6 +307,7 @@ function Dashboard({ user, onLogout, onGoHome, onGoToProfile }) {
     try {
       const res = await fetch(`${apiUrl}?layers=1`, {
         method: "POST",
+        headers: { "ngrok-skip-browser-warning": "true" },
         body: form,
       });
       const data = await res.json().catch(() => null);

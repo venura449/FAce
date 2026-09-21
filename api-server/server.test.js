@@ -49,3 +49,45 @@ test("returns a 400 response for malformed JSON payloads", async () => {
     });
   }
 });
+
+test("allows Codespaces dashboard origins to preflight API requests", async () => {
+  const server = await startServer(0, { initializeDb: false });
+
+  try {
+    const address = server.address();
+    const port = typeof address === "object" && address ? address.port : 0;
+
+    const response = await new Promise((resolve, reject) => {
+      const req = http.request(
+        {
+          hostname: "127.0.0.1",
+          port,
+          path: "/api/recommendations",
+          method: "OPTIONS",
+          headers: {
+            Origin: "https://example-5173.app.github.dev",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type",
+          },
+        },
+        (res) => {
+          res.resume();
+          res.on("end", () => resolve(res));
+        },
+      );
+
+      req.on("error", reject);
+      req.end();
+    });
+
+    assert.equal(response.statusCode, 204);
+    assert.equal(
+      response.headers["access-control-allow-origin"],
+      "https://example-5173.app.github.dev",
+    );
+  } finally {
+    await new Promise((resolve, reject) => {
+      server.close((error) => (error ? reject(error) : resolve()));
+    });
+  }
+});

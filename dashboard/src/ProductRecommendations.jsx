@@ -128,6 +128,7 @@ export default function ProductRecommendations({ cvScores }) {
         const locationQuery = await getEnvironmentQuery();
         const envRes = await fetch(
           `${apiBase}/api/environment${locationQuery}`,
+          { headers: { "ngrok-skip-browser-warning": "true" } },
         ).then((r) => r.json().catch(() => null));
         if (!envRes?.success)
           throw new Error(envRes?.message || "Failed to load environment");
@@ -135,7 +136,10 @@ export default function ProductRecommendations({ cvScores }) {
         const [skincareRes, makeupRes] = await Promise.all([
           fetch(`${apiBase}/api/recommendations`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": "true",
+            },
             body: JSON.stringify({
               cvScores: cvPayload,
               climateData: envRes.result || null,
@@ -145,7 +149,10 @@ export default function ProductRecommendations({ cvScores }) {
           }).then((r) => r.json().catch(() => null)),
           fetch(`${apiBase}/api/recommendations`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": "true",
+            },
             body: JSON.stringify({
               cvScores: cvPayload,
               climateData: envRes.result || null,

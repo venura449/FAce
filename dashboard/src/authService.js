@@ -54,6 +54,7 @@ export async function fetchWithAuth(url, options = {}) {
     const token = getToken();
     const headers = {
         "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
         ...options.headers,
     };
 

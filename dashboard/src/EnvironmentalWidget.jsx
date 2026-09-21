@@ -41,7 +41,9 @@ export default function EnvironmentalWidget() {
     setLoading(true);
     try {
       const locationQuery = await getEnvironmentQuery();
-      const res = await fetch(`${apiUrl}${locationQuery}`);
+      const res = await fetch(`${apiUrl}${locationQuery}`, {
+        headers: { "ngrok-skip-browser-warning": "true" },
+      });
       const body = await res.json().catch(() => null);
 
       if (!res.ok) {
